@@ -6,7 +6,7 @@ public:
     PnlVect *weights_; /// poids des sous jacents
     double strike_;    /// strike
 
-    virtual double payoff(const PnlMat *path);
+    double payoff(const PnlMat *path, int date);
 
     /**
      * Crée une option Bestof en remplissant ses attributs
@@ -22,5 +22,5 @@ public:
     /**
      * Détruit l'objet et libère la mémoire
      */
-    virtual ~Bestof();
+    ~Bestof();
 };

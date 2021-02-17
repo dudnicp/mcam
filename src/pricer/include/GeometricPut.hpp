@@ -5,7 +5,7 @@ class GeometricPut : Option
 public:
     double strike_; /// strike
 
-    virtual double payoff(const PnlMat *path);
+    double payoff(const PnlMat *path, int date);
 
     /**
      * Crée une option put géométrique en remplissant ses attributs
@@ -20,5 +20,5 @@ public:
     /**
      * Détruit l'objet et libère la mémoire
      */
-    virtual ~GeometricPut();
+    ~GeometricPut();
 };
