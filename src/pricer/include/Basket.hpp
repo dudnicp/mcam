@@ -23,4 +23,7 @@ public:
      * Détruit l'objet et libère la mémoire
      */
     ~Basket();
+
+private:
+    PnlVect *spots_;
 };
