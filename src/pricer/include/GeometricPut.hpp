@@ -1,3 +1,5 @@
+#pragma once
+
 #include "Option.hpp"
 
 class GeometricPut : Option
@@ -5,7 +7,7 @@ class GeometricPut : Option
 public:
     double strike_; /// strike
 
-    double payoff(const PnlMat *path, int date);
+    double payoff(const PnlVect *spots);
 
     /**
      * Crée une option put géométrique en remplissant ses attributs

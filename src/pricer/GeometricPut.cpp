@@ -2,23 +2,21 @@
 #include <algorithm>
 #include <cmath>
 
-GeometricPut::GeometricPut(double T, int dates, int size, double strike) : Option(T, dates, size),
-                                                                           strike_(strike)
+GeometricPut::GeometricPut(double T, int dates, int size, double strike)
+    : Option(T, dates, size), strike_(strike)
 {
-    spots_ = pnl_vect_create(size);
 }
 
 GeometricPut::~GeometricPut()
 {
-    pnl_vect_free(&spots_);
 }
 
-double GeometricPut::payoff(const PnlMat *path, int date)
+double GeometricPut::payoff(const PnlVect *spots)
 {
     double payoff = 1;
     for (int i = 0; i < size_; i++)
     {
-        payoff *= MGET(path, date, i);
+        payoff *= GET(spots, i);
     }
     payoff = std::pow(payoff, 1.0 / size_);
     payoff = strike_ - payoff;

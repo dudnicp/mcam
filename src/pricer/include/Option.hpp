@@ -14,13 +14,10 @@ public:
     /**
      * Calcule la valeur du payoff sur la trajectoire, à la date donnée
      *
-     * @param[in] path est une matrice de taille (dates_+1) x size_
-     * contenant une trajectoire du modèle telle que créée
-     * par la fonction asset.
-     * @param[in] date est la date d'exercice
+     * @param[in] spots est le vecteur des valeurs des sous-jacents
      * @return phi(trajectoire)
      */
-    virtual double payoff(const PnlMat *path, int date) = 0;
+    virtual double payoff(const PnlVect *spots) = 0;
 
     /**
      * Crée une option en remplissant ses attributs

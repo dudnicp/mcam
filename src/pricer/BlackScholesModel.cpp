@@ -2,9 +2,8 @@
 #include <cmath>
 
 BlackScholesModel::BlackScholesModel(int size, double r, double rho, const PnlVect *sigma,
-                                     const PnlVect *divid, const PnlVect *spots) : size_(size),
-                                                                                   r_(r),
-                                                                                   rho_(rho)
+                                     const PnlVect *divid, const PnlVect *spots)
+    : size_(size), r_(r), rho_(rho)
 {
     sigma_ = pnl_vect_copy(sigma);
     divid_ = pnl_vect_copy(divid);

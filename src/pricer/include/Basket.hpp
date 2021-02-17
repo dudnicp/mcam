@@ -1,3 +1,5 @@
+#pragma once
+
 #include "Option.hpp"
 
 class Basket : Option
@@ -6,7 +8,7 @@ public:
     PnlVect *weights_; /// poids des sous jacents
     double strike_;    /// strike
 
-    double payoff(const PnlMat *path, int date);
+    double payoff(const PnlVect* spots);
 
     /**
      * Crée une option basket en remplissant ses attributs
