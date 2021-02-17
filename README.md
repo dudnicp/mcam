@@ -1,1 +1,1 @@
-mcam
+American option pricer using Longstaff-Schwartz algorithm
