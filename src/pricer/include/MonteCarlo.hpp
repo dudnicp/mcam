@@ -8,7 +8,7 @@ class MonteCarlo
 {
 public:
     BlackScholesModel *mod_; /*! pointeur vers le modèle */
-    Option *opt_; /*! pointeur sur l'option */
+    Option *opt_;            /*! pointeur sur l'option */
 
     /**
      * Calcule le prix de l'option à la date 0
@@ -16,7 +16,4 @@ public:
      * @return valeur de l'estimateur Monte Carlo
      */
     double price();
-
 };
-
-

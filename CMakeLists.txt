@@ -43,12 +43,7 @@ add_subdirectory(src/3rdparty/jlparser)
 
 ### Ne rien modifier dans la partie au dessus de cette ligne.
 
-# Test the parser
-add_executable(test-parser src/test_parser.cpp)
-target_link_libraries(test-parser jl_parser ${LIBS})
-
-add_executable(mc-example src/mc_example.cpp src/PricingResults.cpp)
-target_link_libraries(mc-example jl_parser ${LIBS})
+add_subdirectory(src)
 
 # Print compiler flags
 get_directory_property(DirDefs COMPILE_DEFINITIONS)
