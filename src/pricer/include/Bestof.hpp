@@ -23,7 +23,4 @@ public:
      * Détruit l'objet et libère la mémoire
      */
     ~Bestof();
-
-private:
-    PnlVect *spots_;
 };

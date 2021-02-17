@@ -21,7 +21,4 @@ public:
      * Détruit l'objet et libère la mémoire
      */
     ~GeometricPut();
-
-private:
-    PnlVect *spots_;
 };

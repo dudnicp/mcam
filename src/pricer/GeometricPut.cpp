@@ -15,8 +15,12 @@ GeometricPut::~GeometricPut()
 
 double GeometricPut::payoff(const PnlMat *path, int date)
 {
-    pnl_mat_get_row(spots_, path, date);
-    pnl_vect_cumprod(spots_);
-    double payoff = strike_ - std::pow(pnl_vect_get(spots_, size_ - 1), 1.0 / size_);
+    double payoff = 1;
+    for (int i = 0; i < size_; i++)
+    {
+        payoff *= MGET(path, date, i);
+    }
+    payoff = std::pow(payoff, 1.0 / size_);
+    payoff = strike_ - payoff;
     return std::max(payoff, 0.0);
 }
