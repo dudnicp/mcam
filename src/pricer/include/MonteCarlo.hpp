@@ -38,7 +38,16 @@ public:
 private:
     PnlRng *rng_;
     PnlBasis *basis_;
+    PnlMat **samples_;
+    PnlMat *exerciseDates_;
+    PnlVect *psiCoefs_;
+    PnlMat *x_;
+    PnlVect *y_;
+    PnlVect *auxSpots_;
 
-    PnlMat **createSamples();
-    void freeSamples(PnlMat ***samples);
+    void sample();
+    void fillX(int t);
+    void fillY(int t);
+    void fillExerciseDates(int t);
+    double getPrice() const;
 };
