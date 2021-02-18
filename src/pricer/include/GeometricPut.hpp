@@ -2,7 +2,7 @@
 
 #include "Option.hpp"
 
-class GeometricPut : Option
+class GeometricPut : public Option
 {
 public:
     double strike_; /// strike

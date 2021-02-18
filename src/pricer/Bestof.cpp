@@ -14,8 +14,8 @@ Bestof::~Bestof()
 
 double Bestof::payoff(const PnlVect *spots)
 {
-    double payoff = 0, current = 0;
-    for (int i = 0; i < size_; i++)
+    double payoff = GET(spots, 0) * GET(weights_, 0), current = 0;
+    for (int i = 1; i < size_; i++)
     {
         current = GET(spots, i) * GET(weights_, i);
         if (current > payoff)

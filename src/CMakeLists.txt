@@ -1,7 +1,7 @@
 add_subdirectory(pricer)
 
-add_executable(mc-example mc_example.cpp)
-target_link_libraries(mc-example jl_parser pricer ${LIBS})
-set_target_properties(mc-example
+add_executable(mcam mcam.cpp)
+target_link_libraries(mcam jl_parser pricer ${LIBS})
+set_target_properties(mcam
     PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/build")

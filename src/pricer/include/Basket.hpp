@@ -2,13 +2,13 @@
 
 #include "Option.hpp"
 
-class Basket : Option
+class Basket : public Option
 {
 public:
     PnlVect *weights_; /// poids des sous jacents
     double strike_;    /// strike
 
-    double payoff(const PnlVect* spots);
+    double payoff(const PnlVect *spots);
 
     /**
      * Crée une option basket en remplissant ses attributs
@@ -19,7 +19,7 @@ public:
      * @param[in] weights est le vecteur des poids des sous-jacents
      * @param[in] strike est le strike de l'option
      */
-    Basket(double T, int dates, int size, const PnlVect *weight, double strike);
+    Basket(double T, int dates, int size, const PnlVect *weights, double strike);
 
     /**
      * Détruit l'objet et libère la mémoire

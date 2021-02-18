@@ -2,13 +2,13 @@
 
 #include "Option.hpp"
 
-class Bestof : Option
+class Bestof : public Option
 {
 public:
     PnlVect *weights_; /// poids des sous jacents
     double strike_;    /// strike
 
-    double payoff(const PnlVect* spots);
+    double payoff(const PnlVect *spots);
 
     /**
      * Crée une option Bestof en remplissant ses attributs
@@ -19,7 +19,7 @@ public:
      * @param[in] weights est le vecteur des poids des sous-jacents
      * @param[in] strike est le strike de l'option
      */
-    Bestof(double T, int dates, int size, const PnlVect *weight, double strike);
+    Bestof(double T, int dates, int size, const PnlVect *weights, double strike);
 
     /**
      * Détruit l'objet et libère la mémoire
