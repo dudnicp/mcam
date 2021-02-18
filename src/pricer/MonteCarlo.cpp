@@ -1,11 +1,13 @@
 #include "MonteCarlo.hpp"
 #include <cmath>
+#include <ctime>
 #include <algorithm>
 
 MonteCarlo::MonteCarlo(BlackScholesModel *mod, Option *opt, int nSamples, int N)
     : mod_(mod), opt_(opt), nSamples_(nSamples), N_(N)
 {
     rng_ = pnl_rng_create(PNL_RNG_MERSENNE);
+    pnl_rng_sseed(rng_, time(nullptr));
     basis_ = pnl_basis_create_from_degree(PNL_BASIS_CANONICAL, N, opt->size_);
     samples_ = new PnlMat *[nSamples_];
     for (int i = 0; i < nSamples_; i++)
@@ -54,10 +56,9 @@ double MonteCarlo::price()
 
 void MonteCarlo::sample()
 {
-    for (int i = 0; i < nSamples_; i++)
+    for (int m = 0; m < nSamples_; m++)
     {
-        samples_[i] = pnl_mat_create(opt_->dates_ + 1, opt_->size_);
-        mod_->asset(samples_[i], opt_->T_, opt_->dates_, rng_);
+        mod_->asset(samples_[m], opt_->T_, opt_->dates_, rng_);
     }
 }
 
