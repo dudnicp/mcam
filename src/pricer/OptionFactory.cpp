@@ -1,3 +1,4 @@
+#include <exception>
 #include "OptionFactory.hpp"
 #include "Basket.hpp"
 #include "Bestof.hpp"
@@ -10,14 +11,16 @@ Option *OptionFactory::build(std::string optionType, double T, int dates, int si
         Basket *basket = new Basket(T, dates, size, weights, strike);
         return basket;
     }
-    if (optionType == "bestof")
+    else if (optionType == "bestof")
     {
         Bestof *bestof = new Bestof(T, dates, size, weights, strike);
         return bestof;
     }
-    if (optionType == "geometric_put")
+    else if (optionType == "geometric_put")
     {
         GeometricPut *geometricPut = new GeometricPut(T, dates, size, strike);
         return geometricPut;
     }
+    else
+        throw std::invalid_argument("Unknown option type!");
 }

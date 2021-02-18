@@ -36,19 +36,28 @@ int main(int argc, char *argv[])
     P->extract("MC iterations", nSamples);
     P->extract("degree for polynomial regression", N);
 
-    Option *opt = OptionFactory::build(optionType, T, dates, size, weights, strike);
-    BlackScholesModel *bsm = new BlackScholesModel(size, r, rho, sigma, divid, spots);
-    MonteCarlo mc(bsm, opt, nSamples, N);
+    try
+    {
+        Option *opt = OptionFactory::build(optionType, T, dates, size, weights, strike);
 
-    cout << PricingResults(mc.price()) << endl;
+        BlackScholesModel *bsm = new BlackScholesModel(size, r, rho, sigma, divid, spots);
+        MonteCarlo mc(bsm, opt, nSamples, N);
+
+        cout << PricingResults(mc.price()) << endl;
+
+        delete opt;
+        delete bsm;
+    }
+    catch (exception e)
+    {
+        cout << e.what() << endl;
+    }
 
     pnl_vect_free(&spots);
     pnl_vect_free(&weights);
     pnl_vect_free(&sigma);
     pnl_vect_free(&divid);
     delete P;
-    delete opt;
-    delete bsm;
 
     return EXIT_SUCCESS;
 }
