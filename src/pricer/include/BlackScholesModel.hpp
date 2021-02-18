@@ -37,9 +37,12 @@ public:
      */
     BlackScholesModel(int size, double r, double rho, const PnlVect *sigma, const PnlVect *divid, const PnlVect *spots);
 
+    /**
+     * Détruit l'objet et libère la mémoire
+     */
     ~BlackScholesModel();
 
 private:
-    PnlMat *L_;
-    PnlVect *G_;
+    PnlMat *L_;  /// Cholesky de la matrice de correlation
+    PnlVect *G_; /// Vecteur de variables aléatoires normales centrées réduites
 };
