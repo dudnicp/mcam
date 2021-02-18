@@ -9,16 +9,16 @@ MonteCarlo::MonteCarlo(BlackScholesModel *mod, Option *opt, int nSamples, int N)
     rng_ = pnl_rng_create(PNL_RNG_MERSENNE);
     pnl_rng_sseed(rng_, time(nullptr));
     basis_ = pnl_basis_create_from_degree(PNL_BASIS_CANONICAL, N, opt->size_);
-    samples_ = new PnlMat *[nSamples_];
-    for (int i = 0; i < nSamples_; i++)
+    samples_ = new PnlMat *[nSamples];
+    for (int m = 0; m < nSamples; m++)
     {
-        samples_[i] = pnl_mat_create(opt_->dates_ + 1, opt_->size_);
+        samples_[m] = pnl_mat_create(opt->dates_ + 1, opt->size_);
     }
     exerciseDates_ = pnl_mat_create(nSamples, opt->dates_);
-    psiCoefs_ = pnl_vect_create(N);
+    psiCoefs_ = pnl_vect_create(N + 1);
     x_ = pnl_mat_create(nSamples, opt->size_);
     y_ = pnl_vect_create(nSamples);
-    auxSpots_ = pnl_vect_create(opt_->size_);
+    auxSpots_ = pnl_vect_create(opt->size_);
 }
 
 MonteCarlo::~MonteCarlo()

@@ -30,7 +30,7 @@ void BlackScholesModel::asset(PnlMat *path, double T, int dates, PnlRng *rng)
 
     double sigma_d, divid_d, scalarProd;
     int t, d, i;
-    for (t = 1; t < dates; t++)
+    for (t = 1; t <= dates; t++)
     {
         pnl_vect_rng_normal(G_, size_, rng);
         for (d = 0; d < size_; d++)
