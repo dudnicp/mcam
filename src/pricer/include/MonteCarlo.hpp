@@ -36,14 +36,14 @@ public:
     ~MonteCarlo();
 
 private:
-    PnlRng *rng_;           /// générateur de nombres aléatoires
-    PnlBasis *basis_;       /// base de régression polynomiale
-    PnlMat **samples_;      /// liste des trajéctoires simulées
-    PnlMat *exerciseDates_; /// matrices des dates d'exercice (Tau_i^m dans l'algorithme de LS)
-    PnlVect *psiCoefs_;     /// coefficients de la régression polynomiale
-    PnlMat *x_;             /// points où la valeur de la régression polynomiale est connée
-    PnlVect *y_;            /// valeurs connues de la regression polynomiale
-    PnlVect *auxSpots_;     /// vecteur auxiliaire pour stocker temporairement les prix des sous-jacents
+    PnlRng *rng_;            /// générateur de nombres aléatoires
+    PnlBasis *basis_;        /// base de régression polynomiale
+    PnlMat **samples_;       /// liste des trajéctoires simulées
+    PnlVect *exerciseDates_; /// vecteur des dates d'exercice (Tau_i^m dans l'algorithme de LS)
+    PnlVect *psiCoefs_;      /// coefficients de la régression polynomiale
+    PnlMat *x_;              /// points où la valeur de la régression polynomiale est connée
+    PnlVect *y_;             /// valeurs connues de la regression polynomiale
+    PnlVect *auxSpots_;      /// vecteur auxiliaire pour stocker temporairement les prix des sous-jacents
 
     /**
      * Simule nSamples_ trajectoires de sous-jacents

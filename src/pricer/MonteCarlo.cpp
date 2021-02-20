@@ -14,7 +14,7 @@ MonteCarlo::MonteCarlo(BlackScholesModel *mod, Option *opt, int nSamples, int N)
     {
         samples_[m] = pnl_mat_create(opt->dates_ + 1, opt->size_);
     }
-    exerciseDates_ = pnl_mat_create(nSamples, opt->dates_);
+    exerciseDates_ = pnl_vect_create(nSamples);
     psiCoefs_ = pnl_vect_create(N + 1);
     x_ = pnl_mat_create(nSamples, opt->size_);
     y_ = pnl_vect_create(nSamples);
@@ -30,7 +30,7 @@ MonteCarlo::~MonteCarlo()
         pnl_mat_free(&(samples_[i]));
     }
     delete[] * samples_;
-    pnl_mat_free(&exerciseDates_);
+    pnl_vect_free(&exerciseDates_);
     pnl_vect_free(&psiCoefs_);
     pnl_mat_free(&x_);
     pnl_vect_free(&y_);
@@ -40,9 +40,8 @@ MonteCarlo::~MonteCarlo()
 double MonteCarlo::price()
 {
     sample();
-    pnl_mat_set_all(exerciseDates_, opt_->dates_);
+    pnl_vect_set_all(exerciseDates_, opt_->dates_);
 
-    double nextPayoff;
     for (int i = opt_->dates_ - 1; i >= 1; i--)
     {
         fillX(i);
@@ -79,7 +78,7 @@ void MonteCarlo::fillY(int t)
     int nextExerciceDate;
     for (int m = 0; m < nSamples_; m++)
     {
-        nextExerciceDate = MGET(exerciseDates_, m, t);
+        nextExerciceDate = GET(exerciseDates_, m);
         pnl_mat_get_row(auxSpots_, samples_[m], nextExerciceDate);
         LET(y_, m) = std::exp(-mod_->r_ * (nextExerciceDate - t) * timeStep) * opt_->payoff(auxSpots_);
     }
@@ -93,27 +92,22 @@ void MonteCarlo::fillExerciseDates(int t)
         pnl_mat_get_row(auxSpots_, samples_[m], t);
         psiPayoff = pnl_basis_eval_vect(basis_, psiCoefs_, auxSpots_);
         if (opt_->payoff(auxSpots_) >= psiPayoff)
-            MLET(exerciseDates_, m, t - 1) = t;
-        else
-            MLET(exerciseDates_, m, t - 1) = MGET(exerciseDates_, m, t);
+            LET(exerciseDates_, m) = t;
     }
 }
 
 double MonteCarlo::getPrice() const
 {
-    PnlVect *spots = pnl_vect_create(opt_->size_);
     double price = 0, timeStep = opt_->T_ / opt_->dates_;
     int firstExerciceDate;
     for (int m = 0; m < nSamples_; m++)
     {
-        firstExerciceDate = MGET(exerciseDates_, m, 0);
-        pnl_mat_get_row(spots, samples_[m], firstExerciceDate);
-        price += std::exp(-mod_->r_ * firstExerciceDate * timeStep) * opt_->payoff(spots);
+        firstExerciceDate = GET(exerciseDates_, m);
+        pnl_mat_get_row(auxSpots_, samples_[m], firstExerciceDate);
+        price += std::exp(-mod_->r_ * firstExerciceDate * timeStep) * opt_->payoff(auxSpots_);
     }
     price /= nSamples_;
     price = std::max(opt_->payoff(mod_->spots_), price);
-
-    pnl_vect_free(&spots);
 
     return price;
 }
