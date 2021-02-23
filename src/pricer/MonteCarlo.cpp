@@ -29,7 +29,7 @@ MonteCarlo::~MonteCarlo()
     {
         pnl_mat_free(&(samples_[i]));
     }
-    delete[] * samples_;
+    delete[] samples_;
     pnl_vect_free(&exerciseDates_);
     pnl_vect_free(&psiCoefs_);
     pnl_mat_free(&x_);
